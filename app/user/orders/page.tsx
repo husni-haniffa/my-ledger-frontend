@@ -1,6 +1,5 @@
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
-import React from 'react'
 
 const OrderPage = () => {
     return (
@@ -12,7 +11,7 @@ const OrderPage = () => {
                 </div>
                 <div>
                     <Button asChild className='bg-blue-700 hover:bg-blue-800!'>
-                        <Link href={'/add-order'}>
+                        <Link href={'/user/orders/add-order'}>
                             Add Order
                         </Link>
                     </Button>
