@@ -5,7 +5,7 @@ export type OrderStatus =
     | "cancelled"
     | "returned"
 
-export type PaymentStatus = "paid" | "unpaid" | "cod" | "refunded"
+export type PaymentStatus = "pending" | "paid" | "refunded"
 
 export type PaymentMethod =
     | "cash"
@@ -103,4 +103,8 @@ export interface OrderResponse {
 
 export interface OrderListResponse {
     data: Order[]
+}
+
+export interface UpdateOrderPaymentStatusPayload {
+    payment_status: PaymentStatus
 }

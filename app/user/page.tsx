@@ -1,8 +1,12 @@
-import React from 'react'
+"use client"
+
+import Report from "@/features/summary/Report"
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <div>
+      <Report/>
+    </div>
   )
 }
 

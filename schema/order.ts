@@ -11,7 +11,7 @@ export const customerDetailsSchema = z
         customer_phone: z.string().max(20).or(z.literal("")),
         customer_address: z.string().max(500).or(z.literal("")),
 
-        payment_status: z.enum(["paid", "unpaid", "cod", "refunded"]),
+        payment_status: z.enum(["pending", "paid", "refunded"]),
 
         payment_method: z.enum([
             "cash",
@@ -70,7 +70,7 @@ export const createOrderFormSchema = customerDetailsSchema.extend({
     items: z.array(orderItemFormSchema).min(1, "At least one product is required"),
 })
 
-export const updateOrderFormSchema = createOrderFormSchema.partial()
+export const updateOrderFormSchema = createOrderFormSchema
 
 export const updateOrderStatusFormSchema = z.object({
     status: z.enum(["processing", "delivered", "cancelled", "returned"]),

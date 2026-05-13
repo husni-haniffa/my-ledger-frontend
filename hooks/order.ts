@@ -10,12 +10,14 @@ import {
     getOrderById,
     getOrderList,
     updateOrder,
+    updateOrderPaymentStatus,
     updateOrderStatus,
 } from "@/api/order"
 
 import {
     CreateOrderPayload,
     UpdateOrderPayload,
+    UpdateOrderPaymentStatusPayload,
     UpdateOrderStatusPayload,
 } from "@/types/order"
 
@@ -173,6 +175,39 @@ export function useDeleteOrder() {
         onSuccess: (data) => {
             queryClient.invalidateQueries({
                 queryKey: ["orders"],
+            })
+
+            toast.success(data.message)
+        },
+
+        onError: (error) => {
+            toast.error(getErrorMessage(error))
+        },
+    })
+}
+
+export function useUpdateOrderPaymentStatus() {
+    const { getToken } = useAuth()
+    const queryClient = useQueryClient()
+
+    return useMutation({
+        mutationFn: async ({
+            id,
+            payload,
+        }: {
+            id: string
+            payload: UpdateOrderPaymentStatusPayload
+        }) => {
+            const token = await getToken()
+            if (!token) throw new Error("Unauthorized")
+
+            return updateOrderPaymentStatus(id, payload, token)
+        },
+
+        onSuccess: (data) => {
+            queryClient.invalidateQueries({ queryKey: ["orders"] })
+            queryClient.invalidateQueries({
+                queryKey: ["orders", String(data.data.id)],
             })
 
             toast.success(data.message)

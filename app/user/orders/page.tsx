@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button'
+import OrderList from '@/features/order/view-order/OrderList'
 import Link from 'next/link'
 
 const OrderPage = () => {
@@ -16,6 +17,9 @@ const OrderPage = () => {
                         </Link>
                     </Button>
                 </div>
+            </div>
+            <div>
+                <OrderList/>
             </div>
         </section>
 
