@@ -9,7 +9,7 @@ const InventoryPage = () => {
       <div className='flex items-center justify-between'>
         <div>
           <h1 className='text-2xl font-bold'>Inventory</h1>
-          <p>Manage and track your store's stock levels.</p>
+          <p>Manage and track your store&apos;s stock levels.</p>
         </div>
         <div>
           <Button asChild className='bg-blue-700 hover:bg-blue-800!'>

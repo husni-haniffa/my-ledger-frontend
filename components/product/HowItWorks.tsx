@@ -32,7 +32,7 @@ const HowItWorks = () => {
                       <span className="text-emerald-500">Built for busy Founders.</span>
                   </h1>
                   <p className="text-white">
-                      You didn't start a business to waste time on complicated tools.
+                      You didn&apos;t start a business to waste time on complicated tools.
                       Get set up in minutes and hit the ground running from day one.
                   </p>
               </div>

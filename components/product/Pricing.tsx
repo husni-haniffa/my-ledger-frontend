@@ -22,7 +22,7 @@ const Pricing = () => {
             <span className="text-emerald-500">Start free </span>
             Scale smart.
           </h1>
-          <p>Full access. 30 days free. No strings attached - upgrade only when you're ready to level up</p>
+          <p>Full access. 30 days free. No strings attached - upgrade only when you&apos;re ready to level up</p>
         </div>
 
 
