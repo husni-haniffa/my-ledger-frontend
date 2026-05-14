@@ -22,6 +22,7 @@ const categories = [
         label: "Settings",
         links: [
             { label: "Account", href: "/user/account" },
+            { label: "Billing", href: "/user/billing" },
         ]
         ,
     },

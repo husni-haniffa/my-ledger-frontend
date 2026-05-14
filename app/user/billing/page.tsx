@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button'
+import CurrentPlan from '@/features/billing/CurrentPlan'
 import Link from 'next/link'
 
 const BillingPage = () => {
@@ -16,6 +17,9 @@ const BillingPage = () => {
                         </Link>
                     </Button>
                 </div>
+            </div>
+            <div>
+                <CurrentPlan/>
             </div>
         </section>
 
