@@ -1,6 +1,7 @@
 "use client"
 
 import { useUser } from "@clerk/nextjs"
+import Link from "next/link"
 
 
 
@@ -16,6 +17,9 @@ const ViewAccount = () => {
             <h1 className="font-semibold">{user?.firstName} {user?.lastName}</h1>
             <h1>{user?.primaryEmailAddress?.emailAddress}</h1>
         </div>
+        <Link href={'/billing'}>
+          Upgrade to pro
+        </Link>
     </div>
     
   )
