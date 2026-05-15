@@ -108,3 +108,56 @@ export interface OrderListResponse {
 export interface UpdateOrderPaymentStatusPayload {
     payment_status: PaymentStatus
 }
+
+export interface OrderInvoiceStore {
+    id: number
+    name: string
+    email: string | null
+    phone_number: string | null
+    address: string | null
+    currency: string
+    timezone: string
+}
+
+export interface OrderInvoiceItem {
+    id: number
+    product_name: string
+    sku: string | null
+    quantity: number
+    unit_price: number
+    total_price: number
+}
+
+export interface OrderInvoiceOrder {
+    id: number
+    order_number: string
+
+    customer_name: string | null
+    customer_phone: string | null
+    customer_address: string | null
+
+    status: OrderStatus
+    payment_status: PaymentStatus
+    payment_method: PaymentMethod
+    source: OrderSource
+
+    subtotal: number
+    discount_type: DiscountType
+    discount_value: number
+    discount_amount: number
+    delivery_fee: number
+    total_amount: number
+
+    notes: string | null
+    ordered_at: string
+    created_at: string
+
+    order_items: OrderInvoiceItem[]
+}
+
+export interface OrderInvoiceResponse {
+    data: {
+        store: OrderInvoiceStore
+        order: OrderInvoiceOrder
+    }
+}

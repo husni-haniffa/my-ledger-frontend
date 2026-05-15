@@ -1,6 +1,5 @@
 "use client"
 
-import Link from "next/link"
 import { Order } from "@/types/order"
 import OrderStatusActions from "./OrderStatusActions"
 import OrderPaymentActions from "./OrderPaymentAction"
@@ -41,12 +40,11 @@ const OrdersTable = ({ orders }: OrdersTableProps) => {
                     {orders.map((order) => (
                         <tr key={order.id} className="border-b last:border-b-0">
                             <td className="p-4">
-                                <Link
-                                    href={`/user/orders/${order.id}/edit`}
-                                    className="font-medium text-slate-900 hover:text-emerald-700"
+                                <h1
+                                    className="font-semibold text-slate-900"
                                 >
                                     {order.order_number}
-                                </Link>
+                                </h1>
                             </td>
 
                             <td className="p-4 text-slate-700">

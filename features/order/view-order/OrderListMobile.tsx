@@ -1,6 +1,4 @@
 "use client"
-
-import Link from "next/link"
 import { Order } from "@/types/order"
 import OrderStatusActions from "./OrderStatusActions"
 import OrderPaymentActions from "./OrderPaymentAction"
@@ -17,12 +15,11 @@ const OrdersMobileCards = ({ orders }: OrdersMobileCardsProps) => {
                 <div key={order.id} className="rounded-2xl border bg-white p-4">
                     <div className="flex items-start justify-between gap-4">
                         <div>
-                            <Link
-                                href={`/user/orders/${order.id}/edit`}
+                            <h1
                                 className="font-semibold text-slate-900"
                             >
                                 {order.order_number}
-                            </Link>
+                            </h1>
 
                             <p className="mt-1 text-sm text-slate-500">
                                 {order.customer_name || "Guest"}
