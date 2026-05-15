@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Eye, Pencil, Trash } from "lucide-react"
+import { Download, Eye, Pencil, Trash } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Order, OrderStatus } from "@/types/order"
@@ -47,16 +47,16 @@ const OrderStatusActions = ({
             }
         >
             <Button asChild size="sm" variant="outline">
-                <Link href={`/user/orders/${order.id}`}>
-                    <Eye className="mr-2 size-4" />
-                    View
+                <Link href={`/user/orders/${order.id}/invoice`}>
+                    <Download className="mr-2 size-4" />
+                    Invoice
                 </Link>
             </Button>
 
             {isPending && (
                 <>
                     <Button asChild size="sm" variant="outline">
-                        <Link href={`/user/orders/edit/${order.id}`}>
+                        <Link href={`/user/orders/${order.id}/edit`}>
                             <Pencil className="mr-2 size-4" />
                             Edit
                         </Link>

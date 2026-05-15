@@ -5,6 +5,8 @@ import { useForm } from "@tanstack/react-form"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { useStore } from "@tanstack/react-form"
+
 
 import {
     Select,
@@ -19,12 +21,13 @@ import { useOrderStore } from "@/store/order"
 
 const CustomerDetailsStep = () => {
     const setStep = useOrderStore((state) => state.setStep)
+    
     const setCustomerDetails = useOrderStore(
         (state) => state.setCustomerDetails
     )
 
     const store = useOrderStore()
-
+   
     const form = useForm({
         defaultValues: {
             customer_name: store.customer_name,
@@ -53,6 +56,8 @@ const CustomerDetailsStep = () => {
         },
     })
 
+    
+    const discountType = useStore(form.store, (state) => state.values.discount_type)
     return (
         <form
             className="space-y-6"
@@ -228,47 +233,47 @@ const CustomerDetailsStep = () => {
                             <label className="text-sm font-medium text-slate-700">
                                 Discount Type
                             </label>
-
                             <Select
                                 value={field.state.value}
-                                onValueChange={(value) =>
+                                onValueChange={(value) => {
                                     field.handleChange(value as typeof field.state.value)
-                                }
+                                    if (value === "none") {
+                                        form.setFieldValue("discount_value", "")
+                                    }
+                                }}
                             >
                                 <SelectTrigger>
                                     <SelectValue placeholder="Select discount type" />
                                 </SelectTrigger>
-
                                 <SelectContent>
                                     <SelectItem value="none">No Discount</SelectItem>
                                     <SelectItem value="fixed">Fixed Amount</SelectItem>
-                                    <SelectItem value="percentage">
-                                        Percentage
-                                    </SelectItem>
+                                    <SelectItem value="percentage">Percentage</SelectItem>
                                 </SelectContent>
                             </Select>
                         </div>
                     )}
                 />
 
-                <form.Field
-                    name="discount_value"
-                    children={(field) => (
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-700">
-                                Discount Value
-                            </label>
-
-                            <Input
-                                type="number"
-                                min="0"
-                                placeholder="0"
-                                value={field.state.value}
-                                onChange={(e) => field.handleChange(e.target.value)}
-                            />
-                        </div>
-                    )}
-                />
+                {discountType !== "none" && (
+                    <form.Field
+                        name="discount_value"
+                        children={(field) => (
+                            <div className="space-y-2">
+                                <label className="text-sm font-medium text-slate-700">
+                                    Discount Value
+                                </label>
+                                <Input
+                                    type="number"
+                                    min="0"
+                                    placeholder="0"
+                                    value={field.state.value}
+                                    onChange={(e) => field.handleChange(e.target.value)}
+                                />
+                            </div>
+                        )}
+                    />
+                )}
 
                 <form.Field
                     name="delivery_fee"
@@ -277,7 +282,6 @@ const CustomerDetailsStep = () => {
                             <label className="text-sm font-medium text-slate-700">
                                 Delivery Fee
                             </label>
-
                             <Input
                                 type="number"
                                 min="0"

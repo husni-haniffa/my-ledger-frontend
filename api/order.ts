@@ -2,6 +2,7 @@ import { apiRequest } from "@/lib/api.request"
 
 import {
     CreateOrderPayload,
+    OrderInvoiceResponse,
     OrderListResponse,
     OrderResponse,
     UpdateOrderPayload,
@@ -61,4 +62,8 @@ export function updateOrderPaymentStatus(
         method: "PATCH",
         body: JSON.stringify(payload),
     })
+}
+
+export function getOrderInvoice(id: string, token: string) {
+    return apiRequest<OrderInvoiceResponse>(`/user/order/invoice/${id}`, token)
 }

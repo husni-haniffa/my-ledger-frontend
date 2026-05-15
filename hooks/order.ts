@@ -8,6 +8,7 @@ import {
     createOrder,
     deleteOrder,
     getOrderById,
+    getOrderInvoice,
     getOrderList,
     updateOrder,
     updateOrderPaymentStatus,
@@ -215,6 +216,25 @@ export function useUpdateOrderPaymentStatus() {
 
         onError: (error) => {
             toast.error(getErrorMessage(error))
+        },
+    })
+}
+
+export function useGetOrderInvoice(id: string) {
+    const { getToken } = useAuth()
+
+    return useQuery({
+        queryKey: ["order-invoice", id],
+        enabled: Boolean(id),
+
+        queryFn: async () => {
+            const token = await getToken()
+
+            if (!token) {
+                throw new Error("Unauthorized")
+            }
+
+            return getOrderInvoice(id, token)
         },
     })
 }

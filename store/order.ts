@@ -67,8 +67,8 @@ const initialState = {
     source: "manual" as OrderSource,
 
     discount_type: "none" as DiscountType,
-    discount_value: "0",
-    delivery_fee: "0",
+    discount_value: "",
+    delivery_fee: "",
 
     notes: "",
 }

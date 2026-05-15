@@ -20,3 +20,27 @@ interface Plan {
     currency: string
     billing_period: string
 }
+
+export interface CreatePaymentPayload {
+    plan_slug: string
+}
+
+export interface CreatePaymentResponse {
+    message: string
+    data: {
+        payment_id: number
+        checkout_url: string
+
+        form: {
+            first_name: string
+            last_name: string
+            email: string
+            contact_number: string
+            address_line_one: string
+            process_currency: string
+            secret_key: string
+            custom_fields: string
+            payment: string
+        }
+    }
+}
