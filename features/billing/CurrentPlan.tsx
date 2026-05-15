@@ -1,6 +1,5 @@
 "use client"
 import { useGetCurrentPlan } from "@/hooks/billing"
-import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { CalendarDays, CreditCard, RefreshCcw } from "lucide-react"
 

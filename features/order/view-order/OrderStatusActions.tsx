@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Download, Eye, Pencil, Trash } from "lucide-react"
+import { Download, Pencil, Trash } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Order, OrderStatus } from "@/types/order"

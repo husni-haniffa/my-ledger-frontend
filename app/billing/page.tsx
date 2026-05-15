@@ -1,7 +1,5 @@
-import { Button } from '@/components/ui/button'
 import BillingButton from '@/features/billing/BillingButton'
 import CurrentPlan from '@/features/billing/CurrentPlan'
-import Link from 'next/link'
 
 const BillingPage = () => {
     return (
