@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Poppins } from "next/font/google";
+import { Geist, Geist_Mono, Genos, Poppins } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import QueryProvider from "@/components/shared/QueryProvider";
@@ -21,6 +21,13 @@ const poppins = Poppins({
   display: 'swap',
 })
 
+const genos = Genos({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-genos",
+  display: "swap",
+})
+
 export const metadata: Metadata = {
   title: "MyLedger",
   description: "A digital business ledger built for online entrepreneurs and founders — to record expenses, manage orders, monitor inventory, and analyze business performance, all in one place. Replace the manual work, go fully digital, and get complete visibility over your business — from day one.",
@@ -34,7 +41,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${poppins.className} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${genos.className} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <ClerkProvider>
         <QueryProvider>
