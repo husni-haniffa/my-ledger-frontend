@@ -320,7 +320,7 @@ const CustomerDetailsStep = () => {
                     Back
                 </Button>
 
-                <Button type="submit">Continue</Button>
+                <Button type="submit" onClick={() => setStep(3)}>Continue</Button>
             </div>
         </form>
     )

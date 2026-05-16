@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Poppins } from "next/font/google";
+import { Geist, Geist_Mono, Genos, Poppins } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import QueryProvider from "@/components/shared/QueryProvider";
@@ -20,6 +20,8 @@ const poppins = Poppins({
   subsets: ['latin'],
   display: 'swap',
 })
+
+
 
 export const metadata: Metadata = {
   title: "MyLedger",
