@@ -21,12 +21,7 @@ const poppins = Poppins({
   display: 'swap',
 })
 
-const genos = Genos({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-genos",
-  display: "swap",
-})
+
 
 export const metadata: Metadata = {
   title: "MyLedger",
