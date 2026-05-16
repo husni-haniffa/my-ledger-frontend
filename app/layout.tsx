@@ -21,7 +21,11 @@ const poppins = Poppins({
   display: 'swap',
 })
 
-
+const genos = Genos({
+  weight: ['400', '600'],
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: "MyLedger",
@@ -36,7 +40,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${poppins.className} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${genos.className} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <ClerkProvider>
         <QueryProvider>
