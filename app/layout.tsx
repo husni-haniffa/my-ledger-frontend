@@ -41,7 +41,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${genos.className} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${poppins.className} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <ClerkProvider>
         <QueryProvider>
