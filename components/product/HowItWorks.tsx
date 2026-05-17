@@ -22,7 +22,7 @@ const steps = [
 const HowItWorks = () => {
     return (
         <section
-            className="relative overflow-hidden bg-[#071713] py-20 text-white lg:py-28"
+            className="relative overflow-hidden bg-[#071713] py-20 text-white lg:py-28 scroll-mt-24 lg:scroll-mt-32"
             id="how-it-works"
         >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(110,231,183,0.14),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(16,185,129,0.10),transparent_28%)]" />

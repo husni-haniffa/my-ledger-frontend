@@ -47,7 +47,7 @@ const faqs = [
 const FAQ = () => {
     return (
         <section
-            className="relative overflow-hidden bg-white py-20 lg:py-28"
+            className="relative overflow-hidden bg-white py-20 lg:py-28 scroll-mt-24 lg:scroll-mt-32"
             id="faq"
         >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(16,185,129,0.08),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(15,23,42,0.05),transparent_28%)]" />

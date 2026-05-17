@@ -4,39 +4,16 @@ import { Show, SignOutButton } from "@clerk/nextjs"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { Menu, X } from "lucide-react"
+import { landingLinks } from "@/lib/navigation"
+import { useActiveSection } from "@/hooks/use-active-section"
 
-const navLinks = [
-  { label: "Features", href: "#features" },
-  { label: "How it works", href: "#how-it-works" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" },
-]
 
 const Navbar = ({ isAdmin }: { isAdmin: boolean }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [activeLink, setActiveLink] = useState("")
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10)
-
-    handleScroll()
-    window.addEventListener("scroll", handleScroll, { passive: true })
-
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
-  const handleNavClick = (href: string) => {
-    setActiveLink(href)
-    setIsOpen(false)
-
-    const el = document.querySelector(href)
-    el?.scrollIntoView({ behavior: "smooth", block: "start" })
-  }
+  const activeSection = useActiveSection(landingLinks.map((link) => link.id))
 
   const handleLogoClick = () => {
-    setActiveLink("")
     setIsOpen(false)
     window.scrollTo({ top: 0, behavior: "smooth" })
   }
@@ -59,17 +36,14 @@ const Navbar = ({ isAdmin }: { isAdmin: boolean }) => {
 
         <div className="absolute left-1/2 hidden -translate-x-1/2 lg:block">
           <div className="flex items-center gap-1 rounded-full border border-white/10 bg-white/6 p-1 shadow-inner shadow-white/5 backdrop-blur-xl">
-            {navLinks.map((nav) => {
-              const isActive = activeLink === nav.href
+            {landingLinks.map((nav) => {
+              const isActive = activeSection === nav.id
 
               return (
                 <Link
                   key={nav.href}
                   href={nav.href}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    handleNavClick(nav.href)
-                  }}
+                  onClick={() => setIsOpen(false)}
                   className={`rounded-full px-5 py-2.5 text-[16px] font-semibold tracking-tight transition-all duration-200 ${isActive
                       ? "bg-emerald-300 text-emerald-950 shadow-sm shadow-emerald-300/20"
                       : "text-slate-200 hover:bg-white/10 hover:text-white"
@@ -137,19 +111,16 @@ const Navbar = ({ isAdmin }: { isAdmin: boolean }) => {
         <div className="border-t border-white/10 bg-[#071713]/98 shadow-2xl backdrop-blur-xl lg:hidden">
           <div className="container space-y-5 py-5">
             <div className="grid gap-1">
-              {navLinks.map((nav) => {
-                const isActive = activeLink === nav.href
+              {landingLinks.map((nav) => {
+                const isActive = activeSection === nav.id
 
                 return (
                   <Link
                     key={nav.href}
                     href={nav.href}
-                    onClick={(e) => {
-                      e.preventDefault()
-                      handleNavClick(nav.href)
-                    }}
-                    className={`rounded-xl px-4 py-3 text-[17px] font-semibold tracking-tight transition-all duration-200 ${isActive
-                        ? "bg-emerald-300 text-emerald-950"
+                    onClick={() => setIsOpen(false)}
+                    className={`rounded-full px-5 py-2.5 text-[16px] font-semibold tracking-tight transition-all duration-200 ${isActive
+                        ? "bg-emerald-300 text-emerald-950 shadow-sm shadow-emerald-300/20"
                         : "text-slate-200 hover:bg-white/10 hover:text-white"
                       }`}
                   >

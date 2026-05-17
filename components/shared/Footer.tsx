@@ -1,38 +1,28 @@
+"use client"
 import Link from "next/link"
+import { landingLinks, legalLinks, companyLinks } from "@/lib/navigation"
+import { useActiveSection } from "@/hooks/use-active-section"
 
 const footers = [
     {
         id: 1,
         title: "Product",
-        links: [
-            { label: "Features", href: "#features" },
-            { label: "How it works", href: "#how-it-works" },
-            { label: "Pricing", href: "#pricing" },
-            { label: "FAQ", href: "#faq" },
-            { label: "Contact", href: "#contact" },
-        ],
+        links: landingLinks,
     },
     {
         id: 2,
         title: "Legal",
-        links: [
-            { label: "Privacy Policy", href: "#privacy" },
-            { label: "Terms of Service", href: "#terms" },
-            { label: "About", href: "#about" },
-        ],
+        links: legalLinks,
     },
     {
         id: 3,
         title: "Company",
-        links: [
-            { label: "hello@myledgerlk.com", href: "mailto:hello@myledgerlk.com" },
-            { label: "+94 (76) 905-0210", href: "tel:+94769050210" },
-            { label: "Dehiwala, Mount Lavinia", href: "#address" },
-        ],
+        links: companyLinks,
     },
 ]
 
 const Footer = () => {
+    const activeSection = useActiveSection(landingLinks.map((link) => link.id))
     return (
         <footer
             id="contact"
@@ -78,15 +68,23 @@ const Footer = () => {
                             </h2>
 
                             <div className="mt-4 grid gap-3">
-                                {footer.links.map((link) => (
-                                    <Link
-                                        href={link.href}
-                                        key={link.label}
-                                        className="text-[16px] font-semibold tracking-tight text-slate-300 transition-colors duration-200 hover:text-white"
-                                    >
-                                        {link.label}
-                                    </Link>
-                                ))}
+                                {footer.links.map((link) => {
+                                    const isActive =
+                                        "id" in link && activeSection === link.id
+
+                                    return (
+                                        <Link
+                                            href={link.href}
+                                            key={link.label}
+                                            className={`text-[16px] font-semibold tracking-tight transition-colors duration-200 ${isActive
+                                                    ? "text-emerald-300"
+                                                    : "text-slate-300 hover:text-white"
+                                                }`}
+                                        >
+                                            {link.label}
+                                        </Link>
+                                    )
+                                })}
                             </div>
                         </div>
                     ))}
