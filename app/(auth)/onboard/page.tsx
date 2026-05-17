@@ -13,7 +13,7 @@ const OnboardingPage = () => {
     return (
         <section className="min-h-screen bg-slate-50 px-4 py-6 lg:flex lg:items-center lg:py-8">
             <div className="container">
-                <div className="grid overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-2xl shadow-slate-200/70 lg:min-h-[680px] lg:grid-cols-[0.9fr_1.1fr]">
+                <div className="grid overflow-hidden rounded-[2rem] border border-slate-200 bg-white shadow-2xl shadow-slate-200/70 lg:min-h-170 lg:grid-cols-[0.9fr_1.1fr]">
                     <div className="relative overflow-hidden bg-[#071713] p-7 text-white sm:p-9 lg:p-10">
                         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(110,231,183,0.18),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(16,185,129,0.12),transparent_30%)]" />
 
@@ -24,7 +24,7 @@ const OnboardingPage = () => {
                                 </h1>
 
                                 <div className="mt-10">
-                                    <span className="rounded-full border border-emerald-300/20 bg-white/[0.06] px-4 py-2 text-[15px] font-bold tracking-tight text-emerald-300">
+                                    <span className="rounded-full border border-emerald-300/20 bg-white/6 px-4 py-2 text-[15px] font-bold tracking-tight text-emerald-300">
                                         Store setup
                                     </span>
 
@@ -40,7 +40,7 @@ const OnboardingPage = () => {
                                 </div>
                             </div>
 
-                            <div className="rounded-3xl border border-white/10 bg-white/[0.06] p-5 backdrop-blur-xl">
+                            <div className="rounded-3xl border border-white/10 bg-white/6 p-5 backdrop-blur-xl">
                                 <p className="text-[18px] font-bold tracking-tight text-white">
                                     You can update these details later.
                                 </p>

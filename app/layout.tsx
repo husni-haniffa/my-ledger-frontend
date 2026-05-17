@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Genos, Poppins } from "next/font/google";
+import { Geist, Geist_Mono, Genos } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import QueryProvider from "@/components/shared/QueryProvider";
@@ -14,12 +14,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-const poppins = Poppins({
-  weight: ['400', '600'],
-  subsets: ['latin'],
-  display: 'swap',
-})
 
 const genos = Genos({
   weight: ['400', '600'],

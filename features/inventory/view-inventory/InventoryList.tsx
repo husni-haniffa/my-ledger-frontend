@@ -110,6 +110,9 @@ const InventoryList = () => {
                     Category
                   </TableHead>
                   <TableHead className="text-sm font-bold uppercase tracking-wide text-slate-500">
+                    Stock
+                  </TableHead>
+                  <TableHead className="text-sm font-bold uppercase tracking-wide text-slate-500">
                     Cost Price
                   </TableHead>
                   <TableHead className="text-sm font-bold uppercase tracking-wide text-slate-500">
@@ -133,6 +136,16 @@ const InventoryList = () => {
                     <TableCell>
                       <span className="inline-flex rounded-full bg-slate-100 px-3 py-1 text-sm font-semibold text-slate-600">
                         {item.category}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <span
+                        className={`inline-flex rounded-full px-3 py-1 text-sm font-bold ${item.stock <= item.low_stock_threshold
+                            ? "bg-amber-50 text-amber-700"
+                            : "bg-emerald-50 text-emerald-700"
+                          }`}
+                      >
+                        {item.stock} left
                       </span>
                     </TableCell>
 
@@ -190,7 +203,7 @@ const InventoryList = () => {
                   </div>
                 </div>
 
-                <div className="mt-4 grid grid-cols-2 gap-3">
+                <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
                   <div className="rounded-2xl bg-slate-50 p-3">
                     <p className="text-sm font-semibold text-slate-500">
                       Cost Price
@@ -208,6 +221,30 @@ const InventoryList = () => {
 
                     <p className="mt-1 text-lg font-bold text-emerald-700">
                       Rs. {item.selling_price}
+                    </p>
+                  </div>
+                  <div
+                    className={`rounded-2xl p-3 ${item.stock <= item.low_stock_threshold
+                        ? "bg-amber-50"
+                        : "bg-emerald-50"
+                      }`}
+                  >
+                    <p
+                      className={`text-sm font-semibold ${item.stock <= item.low_stock_threshold
+                          ? "text-amber-700"
+                          : "text-emerald-700"
+                        }`}
+                    >
+                      Stock
+                    </p>
+
+                    <p
+                      className={`mt-1 text-lg font-bold ${item.stock <= item.low_stock_threshold
+                          ? "text-amber-700"
+                          : "text-emerald-700"
+                        }`}
+                    >
+                      {item.stock} left
                     </p>
                   </div>
                 </div>

@@ -16,7 +16,7 @@ const ViewAccount = () => {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(110,231,183,0.16),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(16,185,129,0.10),transparent_30%)]" />
 
         <div className="relative flex flex-col gap-5 sm:flex-row sm:items-center">
-          <div className="flex size-20 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.08] text-3xl font-bold text-emerald-300 backdrop-blur-xl">
+          <div className="flex size-20 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/8 text-3xl font-bold text-emerald-300 backdrop-blur-xl">
             {initials || user?.primaryEmailAddress?.emailAddress?.charAt(0)}
           </div>
 

@@ -90,7 +90,7 @@ const OrderList = () => {
                     </p>
                 </div>
 
-                <div className="grid gap-3 lg:grid-cols-[1fr_auto_auto] xl:min-w-[720px]">
+                <div className="grid gap-3 lg:grid-cols-[1fr_auto_auto] xl:min-w-180">
                     <div className="relative">
                         <Search className="absolute left-4 top-1/2 size-5 -translate-y-1/2 text-slate-400" />
 

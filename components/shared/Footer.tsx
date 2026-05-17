@@ -39,7 +39,7 @@ const Footer = () => {
             className="relative overflow-hidden bg-[#071713] text-white"
         >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(110,231,183,0.16),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(16,185,129,0.1),transparent_28%)]" />
-            <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-emerald-300/40 to-transparent" />
+            <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-emerald-300/40 to-transparent" />
 
             <div className="container relative grid gap-12 py-14 lg:grid-cols-[1.2fr_1fr] lg:py-20">
                 <div className="max-w-2xl">
@@ -58,7 +58,7 @@ const Footer = () => {
                         business — from day one.
                     </p>
 
-                    <div className="mt-8 rounded-2xl border border-white/10 bg-white/[0.06] p-5 shadow-2xl shadow-black/10 backdrop-blur-xl">
+                    <div className="mt-8 rounded-2xl border border-white/10 bg-white/6 p-5 shadow-2xl shadow-black/10 backdrop-blur-xl">
                         <p className="text-[18px] font-semibold tracking-tight text-white">
                             Built for small business owners who want control without
                             complexity.

@@ -58,7 +58,7 @@ const Navbar = ({ isAdmin }: { isAdmin: boolean }) => {
         </Link>
 
         <div className="absolute left-1/2 hidden -translate-x-1/2 lg:block">
-          <div className="flex items-center gap-1 rounded-full border border-white/10 bg-white/[0.06] p-1 shadow-inner shadow-white/5 backdrop-blur-xl">
+          <div className="flex items-center gap-1 rounded-full border border-white/10 bg-white/6 p-1 shadow-inner shadow-white/5 backdrop-blur-xl">
             {navLinks.map((nav) => {
               const isActive = activeLink === nav.href
 
@@ -95,7 +95,7 @@ const Navbar = ({ isAdmin }: { isAdmin: boolean }) => {
 
             <Link
               href="/auth"
-              className="inline-flex h-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.06] px-5 text-[16px] font-semibold tracking-tight text-slate-100 transition-all duration-200 hover:bg-white/12 hover:text-white"
+              className="inline-flex h-11 items-center justify-center rounded-full border border-white/10 bg-white/6 px-5 text-[16px] font-semibold tracking-tight text-slate-100 transition-all duration-200 hover:bg-white/12 hover:text-white"
             >
               Dashboard
             </Link>
@@ -126,7 +126,7 @@ const Navbar = ({ isAdmin }: { isAdmin: boolean }) => {
 
         <button
           onClick={() => setIsOpen((prev) => !prev)}
-          className="inline-flex size-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.06] text-slate-100 transition-all duration-200 hover:bg-white/12 hover:text-white lg:hidden"
+          className="inline-flex size-10 items-center justify-center rounded-full border border-white/10 bg-white/6 text-slate-100 transition-all duration-200 hover:bg-white/12 hover:text-white lg:hidden"
           aria-label="Toggle navigation menu"
         >
           {isOpen ? <X className="size-5" /> : <Menu className="size-5" />}
@@ -174,7 +174,7 @@ const Navbar = ({ isAdmin }: { isAdmin: boolean }) => {
                 <Link
                   href="/auth"
                   onClick={() => setIsOpen(false)}
-                  className="inline-flex h-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.06] text-[17px] font-semibold tracking-tight text-slate-100 transition-all duration-200 hover:bg-white/12"
+                  className="inline-flex h-11 items-center justify-center rounded-xl border border-white/10 bg-white/6 text-[17px] font-semibold tracking-tight text-slate-100 transition-all duration-200 hover:bg-white/12"
                 >
                   Dashboard
                 </Link>
@@ -190,7 +190,7 @@ const Navbar = ({ isAdmin }: { isAdmin: boolean }) => {
                 <Link
                   href="/sign-in"
                   onClick={() => setIsOpen(false)}
-                  className="inline-flex h-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.06] text-[17px] font-semibold tracking-tight text-slate-100 transition-all duration-200 hover:bg-white/12"
+                  className="inline-flex h-11 items-center justify-center rounded-xl border border-white/10 bg-white/6 text-[17px] font-semibold tracking-tight text-slate-100 transition-all duration-200 hover:bg-white/12"
                 >
                   Sign In
                 </Link>

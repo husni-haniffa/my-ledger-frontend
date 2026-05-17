@@ -4,7 +4,6 @@ import Link from "next/link"
 import { SignOutButton } from "@clerk/nextjs"
 import { usePathname } from "next/navigation"
 import {
-    BarChart3,
     Boxes,
     ClipboardList,
     LayoutDashboard,

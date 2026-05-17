@@ -1,84 +1,62 @@
 "use client"
 
+import { useState } from "react"
+
 import { ReportRange } from "@/api/summary"
 import { useGetSummary } from "@/hooks/summary"
-import { useState } from "react"
-import SummarySkeleton from "./skeleton/SummarySkeleton"
-import FinancialSummary from "./FinancialSummary"
-import InventoryInsights from "./InventoryInsights"
-import SalesAnalytics from "./SalesAnalytics"
-import { Button } from "@/components/ui/button"
-const ranges: { label: string; value: ReportRange }[] = [
-    { label: "Today", value: "today" },
-    { label: "7 Days", value: "7d" },
-    { label: "30 Days", value: "30d" },
-    { label: "Year", value: "year" },
-]
-
+import AttentionPanel from "./AttentionPanel"
+import BusinessHealth from "./BusinessHealth"
+import BusinessSnapshot from "./BusinessSnapshot"
+import ExpenseBreakdown from "./ExpenseBreakdown"
+import ReportHeader from "./ReportHeader"
+import SalesPerformance from "./SalesPerformance"
+import ReportSkeleton from "./skeleton/ReportSkeleton"
 
 const Report = () => {
     const [range, setRange] = useState<ReportRange>("today")
     const { data, isLoading, isError } = useGetSummary(range)
-    if(isLoading) {
-        return (
-            <SummarySkeleton/>
-        )
-    }
-    if(isError) {
-        return (
-            <div className="flex min-h-screen flex-col items-center justify-center gap-3">
-                <h1 className="text-lg font-semibold">
-                    Something went wrong
-                </h1>
 
-                <p className="text-sm text-slate-500">
-                    Please try again.
+    if (isLoading) return <ReportSkeleton />
+
+    if (isError || !data?.data) {
+        return (
+            <div className="rounded-3xl border border-red-100 bg-white p-8 text-center shadow-sm">
+                <p className="text-lg font-bold text-red-600">
+                    Couldn&apos;t load your dashboard.
+                </p>
+                <p className="mt-2 text-base font-medium text-slate-500">
+                    Please refresh and try again.
                 </p>
             </div>
         )
     }
-    if (!data?.data) return (
-        <div className="flex min-h-screen flex-col items-center justify-center gap-3">
-            <h1 className="text-lg font-semibold">
-                Something went wrong
-            </h1>
 
-            <p className="text-sm text-slate-500">
-                Please try again.
-            </p>
-        </div>
-    ) 
+    const report = data.data
 
-  return (
+    return (
+        <section className="space-y-6">
+            <ReportHeader range={range} setRange={setRange} />
 
-      <div className="space-y-6">
+            <BusinessSnapshot summary={report.summary} />
 
-          <div className="flex flex-wrap gap-2">
-              {ranges.map((item) => (
-                  <Button
-                      key={item.value}
-                      size="sm"
-                      variant={range === item.value ? "default" : "outline"}
-                      onClick={() => setRange(item.value)}
-                      className={range === item.value ? "bg-emerald-600 hover:bg-emerald-700" : ""}
-                  >
-                      {item.label}
-                  </Button>
-              ))}
-          </div>
+            <div className="grid gap-6 xl:grid-cols-[1fr_0.9fr]">
+                <BusinessHealth summary={report.summary} />
+                <ExpenseBreakdown expenses={report.expenses} />
+            </div>
 
-          <FinancialSummary summary={data?.data?.summary} />
+            <div className="grid gap-6 xl:grid-cols-[0.9fr_1.1fr]">
+                <AttentionPanel
+                    inventory={report.inventory}
+                    outstandingPayments={report.summary.outstandingPayments}
+                />
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <InventoryInsights inventory={data?.data?.inventory} />
-
-              <SalesAnalytics
-                  products={data?.data?.products}
-                  sales={data?.data?.sales}
-              />
-          </div>
-      </div>
-  )
+                <SalesPerformance
+                    products={report.products}
+                    sales={report.sales}
+                />
+            </div>
+        </section>
+    )
 }
 
 export default Report

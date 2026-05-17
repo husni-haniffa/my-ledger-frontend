@@ -29,7 +29,7 @@ const HowItWorks = () => {
 
             <div className="container relative">
                 <div className="mx-auto flex max-w-3xl flex-col items-center justify-center gap-4 text-center">
-                    <span className="rounded-full border border-emerald-300/20 bg-white/[0.06] px-4 py-2 text-[15px] font-bold uppercase tracking-tight text-emerald-300 backdrop-blur-xl">
+                    <span className="rounded-full border border-emerald-300/20 bg-white/6 px-4 py-2 text-[15px] font-bold uppercase tracking-tight text-emerald-300 backdrop-blur-xl">
                         How it works
                     </span>
 
@@ -47,13 +47,13 @@ const HowItWorks = () => {
                 </div>
 
                 <div className="relative mt-16">
-                    <div className="absolute left-0 top-10 hidden h-px w-full bg-gradient-to-r from-transparent via-emerald-300/20 to-transparent lg:block" />
+                    <div className="absolute left-0 top-10 hidden h-px w-full bg-linear-to-r from-transparent via-emerald-300/20 to-transparent lg:block" />
 
                     <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
                         {steps.map((step) => (
                             <div
                                 key={step.step}
-                                className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.06] p-7 shadow-2xl shadow-black/10 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-emerald-300/20 hover:bg-white/[0.08]"
+                                className="group relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/6 p-7 shadow-2xl shadow-black/10 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-emerald-300/20 hover:bg-white/8"
                             >
                                 <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-emerald-300/5 blur-3xl transition-all duration-300 group-hover:bg-emerald-300/10" />
 
@@ -63,7 +63,7 @@ const HowItWorks = () => {
                                             {step.step}
                                         </span>
 
-                                        <div className="h-px w-16 bg-gradient-to-r from-emerald-300/40 to-transparent" />
+                                        <div className="h-px w-16 bg-linear-to-r from-emerald-300/40 to-transparent" />
                                     </div>
 
                                     <h2 className="mt-6 text-[28px] font-bold leading-tight tracking-tight text-white">

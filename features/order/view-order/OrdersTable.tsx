@@ -27,7 +27,7 @@ const formatText = (value: string) => value.replace("_", " ")
 const OrdersTable = ({ orders }: OrdersTableProps) => {
     return (
         <div className="hidden overflow-x-auto md:block">
-            <table className="w-full min-w-[980px]">
+            <table className="w-full min-w-245">
                 <thead className="border-b border-slate-100 bg-slate-50">
                     <tr>
                         <th className="p-4 text-left text-sm font-bold uppercase tracking-wide text-slate-500">
