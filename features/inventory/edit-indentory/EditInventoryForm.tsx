@@ -57,8 +57,7 @@ export function EditInventoryForm({id} : {id: string}) {
     )
   }
   return (
-    <div className="bg-white p-4 rounded-2xl">
-      <h1 className="mb-3 font-bold uppercase text-emerald-700">Edit your item</h1>
+    <div>
       <form
         id="edit-account-form"
         onSubmit={(e) => {

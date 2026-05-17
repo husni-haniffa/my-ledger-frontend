@@ -2,14 +2,12 @@
 
 import { useRouter } from "next/navigation"
 
-import { Button } from "@/components/ui/button"
-
 import SelectProductsStep from "../add-order/SelectProductsStep"
+import CustomerDetailsStep from "../add-order/CustomerDetailStep"
 
 import { useGetInventoryList } from "@/hooks/inventory"
 import { useUpdateOrder } from "@/hooks/order"
 import { useOrderStore } from "@/store/order"
-import CustomerDetailsStep from "../add-order/CustomerDetailStep"
 
 interface EditOrderFormProps {
     id: string
@@ -19,8 +17,11 @@ const formatCurrency = (value: number) => {
     return `Rs. ${value.toLocaleString()}`
 }
 
+const formatText = (value: string) => value.replace("_", " ")
+
 const EditOrderForm = ({ id }: EditOrderFormProps) => {
     const router = useRouter()
+
     const store = useOrderStore()
     const inventory = useGetInventoryList()
     const updateOrder = useUpdateOrder(id)
@@ -68,29 +69,33 @@ const EditOrderForm = ({ id }: EditOrderFormProps) => {
         router.push("/user/orders")
     }
 
+    if (store.currentStep === 1) return <SelectProductsStep />
+
+    if (store.currentStep === 2) return <CustomerDetailsStep />
+
     return (
-        <div className="rounded-2xl border bg-white p-4 shadow-sm sm:p-6">
-            {store.currentStep === 1 && <SelectProductsStep />}
+        <div className="space-y-6">
+            <div>
+                <h2 className="text-2xl font-bold tracking-tight text-slate-950">
+                    Review your changes
+                </h2>
 
-            {store.currentStep === 2 && <CustomerDetailsStep />}
+                <p className="mt-2 max-w-2xl text-base font-medium leading-7 text-slate-600">
+                    Check the updated products, customer details, and total before saving
+                    this order.
+                </p>
+            </div>
 
-            {store.currentStep === 3 && (
-                <div className="space-y-6">
-                    <div>
-                        <h2 className="text-lg font-semibold text-slate-900">
-                            Review Changes
-                        </h2>
-                        <p className="mt-1 text-sm text-slate-500">
-                            Review the updated order before saving.
-                        </p>
-                    </div>
-
-                    <div className="rounded-2xl border">
-                        <div className="border-b p-4">
-                            <h3 className="font-semibold text-slate-900">Products</h3>
+            <div className="grid gap-6 xl:grid-cols-[1fr_380px]">
+                <div className="space-y-4">
+                    <div className="rounded-3xl border border-slate-200 bg-white">
+                        <div className="border-b border-slate-100 p-5">
+                            <h3 className="text-lg font-bold tracking-tight text-slate-950">
+                                Products
+                            </h3>
                         </div>
 
-                        <div className="divide-y">
+                        <div className="divide-y divide-slate-100">
                             {selectedProducts.map((product) => {
                                 const item = store.items.find(
                                     (i) => i.inventory_id === product.id
@@ -101,20 +106,20 @@ const EditOrderForm = ({ id }: EditOrderFormProps) => {
                                 return (
                                     <div
                                         key={product.id}
-                                        className="flex items-center justify-between gap-4 p-4"
+                                        className="flex items-center justify-between gap-4 p-5"
                                     >
                                         <div>
-                                            <h4 className="font-medium text-slate-900">
+                                            <h4 className="font-bold text-slate-950">
                                                 {product.name}
                                             </h4>
 
-                                            <p className="text-sm text-slate-500">
+                                            <p className="mt-1 text-sm font-medium text-slate-500">
                                                 {item.quantity} ×{" "}
                                                 {formatCurrency(Number(product.selling_price))}
                                             </p>
                                         </div>
 
-                                        <p className="font-semibold text-slate-900">
+                                        <p className="font-bold text-slate-950">
                                             {formatCurrency(
                                                 Number(product.selling_price) * item.quantity
                                             )}
@@ -125,48 +130,101 @@ const EditOrderForm = ({ id }: EditOrderFormProps) => {
                         </div>
                     </div>
 
-                    <div className="rounded-2xl border bg-slate-50 p-4">
-                        <div className="space-y-3 text-sm">
-                            <div className="flex justify-between">
-                                <span>Subtotal</span>
-                                <span>{formatCurrency(subtotal)}</span>
-                            </div>
+                    <div className="rounded-3xl border border-slate-200 bg-white p-5">
+                        <h3 className="text-lg font-bold tracking-tight text-slate-950">
+                            Customer details
+                        </h3>
 
-                            <div className="flex justify-between">
-                                <span>Discount</span>
-                                <span>- {formatCurrency(discountAmount)}</span>
-                            </div>
+                        <div className="mt-4 grid gap-3 text-base">
+                            {[
+                                ["Customer", store.customer_name || "Guest customer"],
+                                ["Phone", store.customer_phone || "-"],
+                                ["Source", formatText(store.source)],
+                                ["Payment status", formatText(store.payment_status)],
+                                ["Payment method", formatText(store.payment_method)],
+                            ].map(([label, value]) => (
+                                <div
+                                    key={label}
+                                    className="flex justify-between gap-4 rounded-2xl bg-slate-50 px-4 py-3"
+                                >
+                                    <span className="font-semibold text-slate-500">{label}</span>
+                                    <span className="text-right font-bold capitalize text-slate-950">
+                                        {value}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
 
-                            <div className="flex justify-between">
-                                <span>Delivery Fee</span>
-                                <span>{formatCurrency(deliveryFee)}</span>
-                            </div>
+                    {store.notes && (
+                        <div className="rounded-3xl border border-slate-200 bg-white p-5">
+                            <h3 className="text-lg font-bold tracking-tight text-slate-950">
+                                Notes
+                            </h3>
 
-                            <div className="flex justify-between border-t pt-3 text-base font-semibold">
-                                <span>Total</span>
-                                <span>{formatCurrency(total)}</span>
+                            <p className="mt-2 text-base font-medium leading-7 text-slate-600">
+                                {store.notes}
+                            </p>
+                        </div>
+                    )}
+                </div>
+
+                <div className="rounded-3xl border border-emerald-100 bg-emerald-50 p-5 xl:sticky xl:top-24 xl:self-start">
+                    <h3 className="text-xl font-bold tracking-tight text-slate-950">
+                        Updated summary
+                    </h3>
+
+                    <div className="mt-5 space-y-3 text-base">
+                        <div className="flex items-center justify-between">
+                            <span className="font-semibold text-slate-600">Subtotal</span>
+                            <span className="font-bold text-slate-950">
+                                {formatCurrency(subtotal)}
+                            </span>
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                            <span className="font-semibold text-slate-600">Discount</span>
+                            <span className="font-bold text-red-600">
+                                - {formatCurrency(discountAmount)}
+                            </span>
+                        </div>
+
+                        <div className="flex items-center justify-between">
+                            <span className="font-semibold text-slate-600">Delivery fee</span>
+                            <span className="font-bold text-slate-950">
+                                {formatCurrency(deliveryFee)}
+                            </span>
+                        </div>
+
+                        <div className="border-t border-emerald-200 pt-4">
+                            <div className="flex items-center justify-between">
+                                <span className="text-lg font-bold text-slate-950">Total</span>
+                                <span className="text-2xl font-bold text-emerald-700">
+                                    {formatCurrency(total)}
+                                </span>
                             </div>
                         </div>
                     </div>
 
-                    <div className="flex items-center justify-between">
-                        <Button
-                            type="button"
-                            variant="outline"
-                            onClick={() => store.setStep(2)}
-                        >
-                            Back
-                        </Button>
-
-                        <Button
+                    <div className="mt-6 grid gap-3">
+                        <button
                             disabled={updateOrder.isPending}
                             onClick={handleUpdateOrder}
+                            className="inline-flex h-12 items-center justify-center rounded-full bg-emerald-600 text-base font-bold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-60"
                         >
-                            {updateOrder.isPending ? "Saving..." : "Save Changes"}
-                        </Button>
+                            {updateOrder.isPending ? "Saving changes..." : "Save changes"}
+                        </button>
+
+                        <button
+                            type="button"
+                            onClick={() => store.setStep(2)}
+                            className="inline-flex h-11 items-center justify-center rounded-full border border-slate-200 bg-white text-base font-bold text-slate-700 hover:bg-slate-50"
+                        >
+                            Back to details
+                        </button>
                     </div>
                 </div>
-            )}
+            </div>
         </div>
     )
 }

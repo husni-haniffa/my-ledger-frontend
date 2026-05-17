@@ -1,69 +1,103 @@
 import { Check } from "lucide-react"
-import { Button } from "../ui/button"
 import Link from "next/link"
 
-const benifits = [
-  "Order management",
-  "Expense tracking",
-  "Inventory control",
-  "Business insights",
-  "Smart invoicing",
+const benefits = [
+  "30 days full access free",
+  "Pay once and get one month access",
+  "No long-term contract",
+  "Order, expense, and inventory tracking",
+  "Invoices, reports, and payment tracking",
+  "Cancel anytime by not renewing",
 ]
 
 const Pricing = () => {
   return (
-    <section className="bg-slate-50 py-20">
-      <div className="container" id="pricing">
-        
-        <div className="flex flex-col gap-3 justify-center items-center text-center">
-          <span className="uppercase font-semibold text-emerald-700">Pricing</span>
-          <h1 className="text-2xl lg:text-4xl font-bold">
+    <section className="relative overflow-hidden bg-slate-50 py-20 lg:py-28 scroll-mt-24 lg:scroll-mt-32">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(16,185,129,0.10),transparent_30%),radial-gradient(circle_at_bottom_right,rgba(15,23,42,0.06),transparent_28%)]" />
+
+      <div className="container relative" id="pricing">
+        <div className="mx-auto flex max-w-3xl flex-col items-center gap-4 text-center">
+          <span className="rounded-full border border-emerald-200 bg-emerald-50 px-4 py-2 text-sm font-bold uppercase tracking-tight text-emerald-700">
+            Pricing
+          </span>
+
+          <h1 className="text-4xl font-bold leading-tight tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
             Built for Bootstrappers.{" "}
-            <span className="text-emerald-500">Start free </span>
-            Scale smart.
+            <span className="text-emerald-600">Start free.</span> Continue when
+            ready.
           </h1>
-          <p>Full access. 30 days free. No strings attached - upgrade only when you&apos;re ready to level up</p>
+
+          <p className="max-w-2xl text-lg font-medium leading-8 tracking-tight text-slate-600 sm:text-xl">
+            Start free for 30 days. After that, pay LKR 990 only when you want
+            to continue. One payment gives you one month of access.
+          </p>
         </div>
 
+        <div className="relative mx-auto mt-12 max-w-md">
+          <div className="absolute -inset-4 rounded-[2rem] bg-emerald-200/50 blur-2xl" />
 
-        <div className="mt-9 bg-white p-12 w-90 rounded-2xl shadow-md flex flex-col gap-6 justify-center mx-auto">
+          <div className="relative overflow-hidden rounded-[2rem] border border-emerald-200 bg-white p-7 shadow-2xl shadow-emerald-100/80 sm:p-8">
+            <div className="absolute right-0 top-0 h-32 w-32 rounded-full bg-emerald-100 blur-3xl" />
 
-          <div className="flex flex-col gap-1">
-            <h1 className="text-3xl font-bold text-emerald-500">
-              Free{" "} 
-              <span className="text-muted-foreground font-normal text-sm">
-                / 30 days
+            <div className="relative">
+              <span className="inline-flex rounded-full bg-emerald-50 px-3 py-1.5 text-sm font-bold tracking-tight text-emerald-700">
+                Simple monthly access
               </span>
-            </h1>
-            <h2 className="text-sm text-muted-foreground">
-              Then continue for
-            </h2>
-            <h3 className="text-xl font-semibold">LKR 990 
-              <span className="text-muted-foreground font-normal text-sm">
-                {" "}/ per month
-              </span>
-              </h3>
-          </div>
 
-          <div className="flex flex-col gap-3">
-            {benifits.map((benifit, index) => (
-              <div key={index} className="flex items-center gap-3">
-                <Check className="text-emerald-500 bg-emerald-50 rounded-full w-5 h-5 shrink-0" />
-                <span className="text-sm">{benifit}</span>
+              <div className="mt-5">
+                <h2 className="text-4xl font-bold tracking-tight text-slate-950">
+                  Free
+                  <span className="ml-2 text-lg font-semibold text-slate-500">
+                    / 30 days
+                  </span>
+                </h2>
+
+                <p className="mt-2 text-base font-medium text-slate-600">
+                  Then continue with
+                </p>
+
+                <h3 className="mt-1 text-3xl font-bold tracking-tight text-slate-950">
+                  LKR 990
+                  <span className="ml-2 text-base font-semibold text-slate-500">
+                    / month
+                  </span>
+                </h3>
+
+                <p className="mt-3 rounded-2xl bg-slate-50 p-3 text-sm font-semibold leading-6 text-slate-600">
+                  Pay once, use MyLedger for one month. No yearly lock-in. No
+                  complicated plans.
+                </p>
               </div>
-            ))}
+
+              <div className="my-7 h-px bg-slate-200" />
+
+              <div className="grid gap-3">
+                {benefits.map((benefit) => (
+                  <div key={benefit} className="flex items-center gap-3">
+                    <span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-600">
+                      <Check className="size-4" />
+                    </span>
+
+                    <span className="text-base font-semibold tracking-tight text-slate-700">
+                      {benefit}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <Link
+                href="/sign-up"
+                className="mt-8 inline-flex h-12 w-full items-center justify-center rounded-full bg-emerald-600 px-6 text-lg font-bold tracking-tight text-white transition-all duration-200 hover:bg-emerald-700"
+              >
+                Start free
+              </Link>
+
+              <p className="mt-4 text-center text-sm font-semibold tracking-tight text-slate-500">
+                No credit card needed for the free trial
+              </p>
+            </div>
           </div>
-
-          <Button asChild>
-            <Link href={'/sign-up'}>
-              Start free
-            </Link>
-          </Button>
-
-          <span className="text-xs text-muted-foreground text-center">No credit card needed</span>
-
         </div>
-
       </div>
     </section>
   )

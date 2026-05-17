@@ -1,13 +1,9 @@
 "use client"
 
-import { useForm } from "@tanstack/react-form"
+import { useForm, useStore } from "@tanstack/react-form"
 
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { useStore } from "@tanstack/react-form"
-
-
 import {
     Select,
     SelectContent,
@@ -21,28 +17,21 @@ import { useOrderStore } from "@/store/order"
 
 const CustomerDetailsStep = () => {
     const setStep = useOrderStore((state) => state.setStep)
-    
-    const setCustomerDetails = useOrderStore(
-        (state) => state.setCustomerDetails
-    )
+    const setCustomerDetails = useOrderStore((state) => state.setCustomerDetails)
 
     const store = useOrderStore()
-   
+
     const form = useForm({
         defaultValues: {
             customer_name: store.customer_name,
             customer_phone: store.customer_phone,
             customer_address: store.customer_address,
-
             payment_status: store.payment_status,
             payment_method: store.payment_method,
             source: store.source,
-
             discount_type: store.discount_type,
             discount_value: store.discount_value,
-
             delivery_fee: store.delivery_fee,
-
             notes: store.notes,
         },
 
@@ -56,8 +45,11 @@ const CustomerDetailsStep = () => {
         },
     })
 
-    
-    const discountType = useStore(form.store, (state) => state.values.discount_type)
+    const discountType = useStore(
+        form.store,
+        (state) => state.values.discount_type
+    )
+
     return (
         <form
             className="space-y-6"
@@ -68,259 +60,292 @@ const CustomerDetailsStep = () => {
             }}
         >
             <div>
-                <h2 className="text-lg font-semibold text-slate-900">
-                    Customer & Payment Details
+                <h2 className="text-2xl font-bold tracking-tight text-slate-950">
+                    Add customer and payment details
                 </h2>
 
-                <p className="mt-1 text-sm text-slate-500">
-                    Add customer information, payment details, discounts, and notes.
+                <p className="mt-2 max-w-2xl text-base font-medium leading-7 text-slate-600">
+                    Add the details you need for delivery, payment tracking, and sales
+                    reports.
                 </p>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2">
-                <form.Field
-                    name="customer_name"
-                    children={(field) => (
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-700">
-                                Customer Name
-                            </label>
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5">
+                <h3 className="text-lg font-bold tracking-tight text-slate-950">
+                    Customer information
+                </h3>
 
-                            <Input
-                                placeholder="Customer name"
-                                value={field.state.value}
-                                onChange={(e) => field.handleChange(e.target.value)}
-                            />
-                        </div>
-                    )}
-                />
-
-                <form.Field
-                    name="customer_phone"
-                    children={(field) => (
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-700">
-                                Customer Phone
-                            </label>
-
-                            <Input
-                                placeholder="Customer phone"
-                                value={field.state.value}
-                                onChange={(e) => field.handleChange(e.target.value)}
-                            />
-                        </div>
-                    )}
-                />
-            </div>
-
-            <form.Field
-                name="customer_address"
-                children={(field) => (
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-slate-700">
-                            Customer Address
-                        </label>
-
-                        <Textarea
-                            placeholder="Customer address"
-                            value={field.state.value}
-                            onChange={(e) => field.handleChange(e.target.value)}
-                        />
-                    </div>
-                )}
-            />
-
-            <div className="grid gap-4 md:grid-cols-3">
-                <form.Field
-                    name="source"
-                    children={(field) => (
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-700">
-                                Order Source
-                            </label>
-
-                            <Select
-                                value={field.state.value}
-                                onValueChange={(value) =>
-                                    field.handleChange(value as typeof field.state.value)
-                                }
-                            >
-                                <SelectTrigger>
-                                    <SelectValue placeholder="Select source" />
-                                </SelectTrigger>
-
-                                <SelectContent>
-                                    <SelectItem value="manual">Manual</SelectItem>
-                                    <SelectItem value="instagram">Instagram</SelectItem>
-                                    <SelectItem value="facebook">Facebook</SelectItem>
-                                    <SelectItem value="whatsapp">WhatsApp</SelectItem>
-                                    <SelectItem value="tiktok">TikTok</SelectItem>
-                                    <SelectItem value="website">Website</SelectItem>
-                                    <SelectItem value="other">Other</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-                    )}
-                />
-
-                <form.Field
-                    name="payment_status"
-                    children={(field) => (
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-700">
-                                Payment Status
-                            </label>
-
-                            <Select
-                                value={field.state.value}
-                                onValueChange={(value) =>
-                                    field.handleChange(value as typeof field.state.value)
-                                }
-                            >
-                                <SelectTrigger>
-                                    <SelectValue placeholder="Select payment status" />
-                                </SelectTrigger>
-
-                                <SelectContent>
-                                    <SelectItem value="pending">Pending</SelectItem>
-                                    <SelectItem value="paid">Paid</SelectItem>
-                                    <SelectItem value="refunded">Refunded</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-                    )}
-                />
-
-                <form.Field
-                    name="payment_method"
-                    children={(field) => (
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-700">
-                                Payment Method
-                            </label>
-
-                            <Select
-                                value={field.state.value}
-                                onValueChange={(value) =>
-                                    field.handleChange(value as typeof field.state.value)
-                                }
-                            >
-                                <SelectTrigger>
-                                    <SelectValue placeholder="Select payment method" />
-                                </SelectTrigger>
-
-                                <SelectContent>
-                                    <SelectItem value="cash">Cash</SelectItem>
-                                    <SelectItem value="bank_transfer">
-                                        Bank Transfer
-                                    </SelectItem>
-                                    <SelectItem value="card">Card</SelectItem>
-                                    <SelectItem value="cod">COD</SelectItem>
-                                    <SelectItem value="koko">Koko</SelectItem>
-                                    <SelectItem value="other">Other</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-                    )}
-                />
-            </div>
-
-            <div className="grid gap-4 md:grid-cols-3">
-                <form.Field
-                    name="discount_type"
-                    children={(field) => (
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-700">
-                                Discount Type
-                            </label>
-                            <Select
-                                value={field.state.value}
-                                onValueChange={(value) => {
-                                    field.handleChange(value as typeof field.state.value)
-                                    if (value === "none") {
-                                        form.setFieldValue("discount_value", "")
-                                    }
-                                }}
-                            >
-                                <SelectTrigger>
-                                    <SelectValue placeholder="Select discount type" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="none">No Discount</SelectItem>
-                                    <SelectItem value="fixed">Fixed Amount</SelectItem>
-                                    <SelectItem value="percentage">Percentage</SelectItem>
-                                </SelectContent>
-                            </Select>
-                        </div>
-                    )}
-                />
-
-                {discountType !== "none" && (
+                <div className="mt-4 grid gap-4 md:grid-cols-2">
                     <form.Field
-                        name="discount_value"
+                        name="customer_name"
                         children={(field) => (
                             <div className="space-y-2">
-                                <label className="text-sm font-medium text-slate-700">
-                                    Discount Value
+                                <label className="text-sm font-bold text-slate-700">
+                                    Customer name
                                 </label>
+
+                                <Input
+                                    placeholder="Example: Fathima"
+                                    value={field.state.value}
+                                    onChange={(e) => field.handleChange(e.target.value)}
+                                    className="h-11 text-base font-medium"
+                                />
+                            </div>
+                        )}
+                    />
+
+                    <form.Field
+                        name="customer_phone"
+                        children={(field) => (
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-slate-700">
+                                    Customer phone
+                                </label>
+
+                                <Input
+                                    placeholder="Example: 0771234567"
+                                    value={field.state.value}
+                                    onChange={(e) => field.handleChange(e.target.value)}
+                                    className="h-11 text-base font-medium"
+                                />
+                            </div>
+                        )}
+                    />
+                </div>
+
+                <form.Field
+                    name="customer_address"
+                    children={(field) => (
+                        <div className="mt-4 space-y-2">
+                            <label className="text-sm font-bold text-slate-700">
+                                Customer address
+                            </label>
+
+                            <Textarea
+                                placeholder="Delivery address"
+                                value={field.state.value}
+                                onChange={(e) => field.handleChange(e.target.value)}
+                                className="min-h-24 text-base font-medium"
+                            />
+                        </div>
+                    )}
+                />
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5">
+                <h3 className="text-lg font-bold tracking-tight text-slate-950">
+                    Sales and payment
+                </h3>
+
+                <div className="mt-4 grid gap-4 md:grid-cols-3">
+                    <form.Field
+                        name="source"
+                        children={(field) => (
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-slate-700">
+                                    Sales source
+                                </label>
+
+                                <Select
+                                    value={field.state.value}
+                                    onValueChange={(value) =>
+                                        field.handleChange(value as typeof field.state.value)
+                                    }
+                                >
+                                    <SelectTrigger className="h-11 text-base font-medium">
+                                        <SelectValue placeholder="Select source" />
+                                    </SelectTrigger>
+
+                                    <SelectContent>
+                                        <SelectItem value="manual">Manual</SelectItem>
+                                        <SelectItem value="instagram">Instagram</SelectItem>
+                                        <SelectItem value="facebook">Facebook</SelectItem>
+                                        <SelectItem value="whatsapp">WhatsApp</SelectItem>
+                                        <SelectItem value="tiktok">TikTok</SelectItem>
+                                        <SelectItem value="website">Website</SelectItem>
+                                        <SelectItem value="other">Other</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        )}
+                    />
+
+                    <form.Field
+                        name="payment_status"
+                        children={(field) => (
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-slate-700">
+                                    Payment status
+                                </label>
+
+                                <Select
+                                    value={field.state.value}
+                                    onValueChange={(value) =>
+                                        field.handleChange(value as typeof field.state.value)
+                                    }
+                                >
+                                    <SelectTrigger className="h-11 text-base font-medium">
+                                        <SelectValue placeholder="Select payment status" />
+                                    </SelectTrigger>
+
+                                    <SelectContent>
+                                        <SelectItem value="pending">Pending</SelectItem>
+                                        <SelectItem value="paid">Paid</SelectItem>
+                                        <SelectItem value="refunded">Refunded</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        )}
+                    />
+
+                    <form.Field
+                        name="payment_method"
+                        children={(field) => (
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-slate-700">
+                                    Payment method
+                                </label>
+
+                                <Select
+                                    value={field.state.value}
+                                    onValueChange={(value) =>
+                                        field.handleChange(value as typeof field.state.value)
+                                    }
+                                >
+                                    <SelectTrigger className="h-11 text-base font-medium">
+                                        <SelectValue placeholder="Select payment method" />
+                                    </SelectTrigger>
+
+                                    <SelectContent>
+                                        <SelectItem value="cash">Cash</SelectItem>
+                                        <SelectItem value="bank_transfer">
+                                            Bank Transfer
+                                        </SelectItem>
+                                        <SelectItem value="card">Card</SelectItem>
+                                        <SelectItem value="cod">COD</SelectItem>
+                                        <SelectItem value="koko">Koko</SelectItem>
+                                        <SelectItem value="other">Other</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        )}
+                    />
+                </div>
+            </div>
+
+            <div className="rounded-3xl border border-slate-200 bg-slate-50 p-5">
+                <h3 className="text-lg font-bold tracking-tight text-slate-950">
+                    Discounts and delivery
+                </h3>
+
+                <div className="mt-4 grid gap-4 md:grid-cols-3">
+                    <form.Field
+                        name="discount_type"
+                        children={(field) => (
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-slate-700">
+                                    Discount type
+                                </label>
+
+                                <Select
+                                    value={field.state.value}
+                                    onValueChange={(value) => {
+                                        field.handleChange(value as typeof field.state.value)
+
+                                        if (value === "none") {
+                                            form.setFieldValue("discount_value", "")
+                                        }
+                                    }}
+                                >
+                                    <SelectTrigger className="h-11 text-base font-medium">
+                                        <SelectValue placeholder="Select discount type" />
+                                    </SelectTrigger>
+
+                                    <SelectContent>
+                                        <SelectItem value="none">No discount</SelectItem>
+                                        <SelectItem value="fixed">Fixed amount</SelectItem>
+                                        <SelectItem value="percentage">Percentage</SelectItem>
+                                    </SelectContent>
+                                </Select>
+                            </div>
+                        )}
+                    />
+
+                    {discountType !== "none" && (
+                        <form.Field
+                            name="discount_value"
+                            children={(field) => (
+                                <div className="space-y-2">
+                                    <label className="text-sm font-bold text-slate-700">
+                                        Discount value
+                                    </label>
+
+                                    <Input
+                                        type="number"
+                                        min="0"
+                                        placeholder="0"
+                                        value={field.state.value}
+                                        onChange={(e) => field.handleChange(e.target.value)}
+                                        className="h-11 text-base font-medium"
+                                    />
+                                </div>
+                            )}
+                        />
+                    )}
+
+                    <form.Field
+                        name="delivery_fee"
+                        children={(field) => (
+                            <div className="space-y-2">
+                                <label className="text-sm font-bold text-slate-700">
+                                    Delivery fee
+                                </label>
+
                                 <Input
                                     type="number"
                                     min="0"
                                     placeholder="0"
                                     value={field.state.value}
                                     onChange={(e) => field.handleChange(e.target.value)}
+                                    className="h-11 text-base font-medium"
                                 />
                             </div>
                         )}
                     />
-                )}
+                </div>
 
                 <form.Field
-                    name="delivery_fee"
+                    name="notes"
                     children={(field) => (
-                        <div className="space-y-2">
-                            <label className="text-sm font-medium text-slate-700">
-                                Delivery Fee
-                            </label>
-                            <Input
-                                type="number"
-                                min="0"
-                                placeholder="0"
+                        <div className="mt-4 space-y-2">
+                            <label className="text-sm font-bold text-slate-700">Notes</label>
+
+                            <Textarea
+                                placeholder="Optional notes for this order"
                                 value={field.state.value}
                                 onChange={(e) => field.handleChange(e.target.value)}
+                                className="min-h-24 text-base font-medium"
                             />
                         </div>
                     )}
                 />
             </div>
 
-            <form.Field
-                name="notes"
-                children={(field) => (
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-slate-700">
-                            Notes
-                        </label>
-
-                        <Textarea
-                            placeholder="Optional notes"
-                            value={field.state.value}
-                            onChange={(e) => field.handleChange(e.target.value)}
-                        />
-                    </div>
-                )}
-            />
-
-            <div className="flex items-center justify-between">
-                <Button
+            <div className="flex flex-col-reverse gap-3 border-t border-slate-100 pt-5 sm:flex-row sm:items-center sm:justify-between">
+                <button
                     type="button"
-                    variant="outline"
                     onClick={() => setStep(1)}
+                    className="inline-flex h-11 items-center justify-center rounded-full border border-slate-200 bg-white px-6 text-base font-bold text-slate-700 hover:bg-slate-50"
                 >
-                    Back
-                </Button>
+                    Back to products
+                </button>
 
-                <Button type="submit" onClick={() => setStep(3)}>Continue</Button>
+                <button
+                    type="submit"
+                    className="inline-flex h-11 items-center justify-center rounded-full bg-emerald-600 px-6 text-base font-bold text-white hover:bg-emerald-700"
+                >
+                    Continue to review
+                </button>
             </div>
         </form>
     )

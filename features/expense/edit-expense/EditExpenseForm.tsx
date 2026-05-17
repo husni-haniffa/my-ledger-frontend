@@ -67,11 +67,7 @@ export function EditExpenseForm({id} : {id: string}) {
     }
 
     return (
-        <div className="rounded-2xl bg-white p-4">
-            <h1 className="mb-3 font-bold text-emerald-700">
-                Edit Expense
-            </h1>
-
+        <div>
             <form
                 id="edit-expense-form"
                 onSubmit={(e) => {
