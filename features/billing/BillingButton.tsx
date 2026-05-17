@@ -1,6 +1,5 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
 import { useCreatePayment } from "@/hooks/billing"
 
 const BillingButton = () => {
@@ -34,14 +33,15 @@ const BillingButton = () => {
     }
 
     return (
-        <Button
+        <button
             onClick={handlePayment}
             disabled={createPayment.isPending}
+            className="inline-flex h-12 items-center justify-center rounded-full bg-emerald-600 px-6 text-base font-bold tracking-tight text-white transition-all duration-200 hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-70"
         >
             {createPayment.isPending
-                ? "Redirecting..."
-                : "Pay Now"}
-        </Button>
+                ? "Redirecting to secure checkout..."
+                : "Continue to payment"}
+        </button>
     )
 }
 

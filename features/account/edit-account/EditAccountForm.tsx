@@ -48,8 +48,7 @@ export function EditAccountForm() {
     )
   }
   return (
-    <div className="bg-white p-4 rounded-2xl">
-      <h1 className="mb-3 font-bold uppercase text-emerald-700">Your Store</h1>
+    <div>
       <form
         id="edit-account-form"
         onSubmit={(e) => {
