@@ -1,18 +1,41 @@
 "use client"
+
 import { useGetCurrentPlan } from "@/hooks/billing"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { CalendarDays, CreditCard, RefreshCcw } from "lucide-react"
 
 const CurrentPlan = () => {
     const { data, isLoading, isError } = useGetCurrentPlan()
 
-    if (isLoading) return <div>Loading...</div>
-    if (isError) return <div>Failed to load plan.</div>
+    if (isLoading) {
+        return (
+            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+                <p className="text-base font-semibold text-slate-500">Loading plan...</p>
+            </div>
+        )
+    }
+
+    if (isError) {
+        return (
+            <div className="rounded-3xl border border-red-100 bg-white p-6 shadow-sm">
+                <p className="text-base font-semibold text-red-600">
+                    Failed to load current plan.
+                </p>
+            </div>
+        )
+    }
 
     const plan = data?.data?.plans
     const sub = data?.data
 
-    if (!sub || !plan) return <div>No active plan found.</div>
+    if (!sub || !plan) {
+        return (
+            <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+                <p className="text-base font-semibold text-slate-500">
+                    No active plan found.
+                </p>
+            </div>
+        )
+    }
 
     const formatDate = (date: string) =>
         new Date(date).toLocaleDateString("en-US", {
@@ -22,100 +45,106 @@ const CurrentPlan = () => {
         })
 
     const statusColor: Record<string, string> = {
-        active: "bg-green-100 text-green-700",
-        trialing: "bg-blue-100 text-blue-700",
-        cancelled: "bg-red-100 text-red-700",
-        past_due: "bg-yellow-100 text-yellow-700",
+        active: "bg-emerald-50 text-emerald-700 border-emerald-100",
+        trialing: "bg-blue-50 text-blue-700 border-blue-100",
+        cancelled: "bg-red-50 text-red-700 border-red-100",
+        past_due: "bg-amber-50 text-amber-700 border-amber-100",
     }
 
     const isTrialing = sub.status === "trialing"
 
     return (
-        <Card>
-            <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle className="text-lg font-semibold">Current Plan</CardTitle>
+        <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="flex flex-col gap-4 border-b border-slate-100 pb-6 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                    <p className="text-sm font-bold uppercase tracking-wider text-emerald-600">
+                        Current plan
+                    </p>
+
+                    <h2 className="mt-2 text-3xl font-bold tracking-tight text-slate-950 capitalize">
+                        {plan.name}
+                    </h2>
+
+                    <p className="mt-2 text-base font-medium text-slate-600 capitalize">
+                        {plan.billing_period} billing
+                    </p>
+                </div>
+
                 <span
-                    className={`rounded-full px-3 py-1 text-xs font-medium capitalize ${statusColor[sub.status] ?? "bg-gray-100 text-gray-600"
+                    className={`w-fit rounded-full border px-3 py-1 text-sm font-bold capitalize ${statusColor[sub.status] ?? "border-slate-100 bg-slate-100 text-slate-600"
                         }`}
                 >
                     {sub.status}
                 </span>
-            </CardHeader>
+            </div>
 
-            <CardContent className="space-y-6">
-                {/* Plan name & price */}
-                <div className="flex items-center justify-between">
-                    <div>
-                        <p className="text-2xl font-bold capitalize">{plan.name}</p>
-                        <p className="text-sm text-slate-500 capitalize">
-                            {plan.billing_period} billing
-                        </p>
-                    </div>
-                    <div className="text-right">
-                        <p className="text-2xl font-bold">
-                            {plan.currency.toUpperCase()} {plan.price}
-                        </p>
-                        <p className="text-sm text-slate-500">per {plan.billing_period}</p>
-                    </div>
+            <div className="py-6">
+                <p className="text-sm font-semibold text-slate-500">Plan price</p>
+
+                <p className="mt-1 text-3xl font-bold tracking-tight text-slate-950">
+                    {plan.currency.toUpperCase()} {plan.price}
+                    <span className="ml-2 text-base font-semibold text-slate-500">
+                        / {plan.billing_period}
+                    </span>
+                </p>
+            </div>
+
+            {isTrialing && sub.trial_end && (
+                <div className="mb-6 rounded-2xl border border-blue-100 bg-blue-50 px-4 py-3">
+                    <p className="text-base font-semibold leading-7 text-blue-700">
+                        You&apos;re on a free trial. It ends on{" "}
+                        <span className="font-bold">{formatDate(sub.trial_end)}</span>.
+                    </p>
+                </div>
+            )}
+
+            <div className="grid gap-4 sm:grid-cols-2">
+                <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
+                    <CalendarDays className="size-5 text-emerald-600" />
+                    <p className="mt-3 text-sm font-semibold text-slate-500">
+                        Current period
+                    </p>
+                    <p className="mt-1 text-base font-bold text-slate-900">
+                        {formatDate(sub.current_period_start)} —{" "}
+                        {formatDate(sub.current_period_end)}
+                    </p>
                 </div>
 
-                <hr />
+                <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4">
+                    <RefreshCcw className="size-5 text-emerald-600" />
+                    <p className="mt-3 text-sm font-semibold text-slate-500">
+                        Next renewal
+                    </p>
+                    <p className="mt-1 text-base font-bold text-slate-900">
+                        {sub.cancelled_at
+                            ? "Cancelled — won't renew"
+                            : formatDate(sub.current_period_end)}
+                    </p>
+                </div>
 
-                {/* Trial info */}
-                {isTrialing && sub.trial_end && (
-                    <div className="rounded-lg bg-blue-50 px-4 py-3 text-sm text-blue-700">
-                        🎉 You&apos;re on a free trial — ends on{" "}
-                        <span className="font-medium">{formatDate(sub.trial_end)}</span>
+                <div className="rounded-2xl border border-slate-100 bg-slate-50 p-4 sm:col-span-2">
+                    <CreditCard className="size-5 text-emerald-600" />
+                    <p className="mt-3 text-sm font-semibold text-slate-500">
+                        Plan reference
+                    </p>
+                    <p className="mt-1 text-base font-bold uppercase text-slate-900">
+                        {plan.slug}
+                    </p>
+                </div>
+
+                {sub.cancelled_at && (
+                    <div className="rounded-2xl border border-red-100 bg-red-50 p-4 sm:col-span-2">
+                        <CalendarDays className="size-5 text-red-600" />
+                        <p className="mt-3 text-sm font-semibold text-red-500">
+                            Cancelled on
+                        </p>
+                        <p className="mt-1 text-base font-bold text-red-700">
+                            {formatDate(sub.cancelled_at)}
+                        </p>
                     </div>
                 )}
-
-                {/* Billing dates */}
-                <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="flex items-start gap-3">
-                        <CalendarDays className="mt-0.5 h-4 w-4 text-slate-400" />
-                        <div>
-                            <p className="text-xs text-slate-500">Current Period</p>
-                            <p className="text-sm font-medium">
-                                {formatDate(sub.current_period_start)} —{" "}
-                                {formatDate(sub.current_period_end)}
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="flex items-start gap-3">
-                        <RefreshCcw className="mt-0.5 h-4 w-4 text-slate-400" />
-                        <div>
-                            <p className="text-xs text-slate-500">Next Renewal</p>
-                            <p className="text-sm font-medium">
-                                {sub.cancelled_at
-                                    ? "Cancelled — won't renew"
-                                    : formatDate(sub.current_period_end)}
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="flex items-start gap-3">
-                        <CreditCard className="mt-0.5 h-4 w-4 text-slate-400" />
-                        <div>
-                            <p className="text-xs text-slate-500">Plan Slug</p>
-                            <p className="text-sm font-medium uppercase">{plan.slug}</p>
-                        </div>
-                    </div>
-
-                    {sub.cancelled_at && (
-                        <div className="flex items-start gap-3">
-                            <CalendarDays className="mt-0.5 h-4 w-4 text-red-400" />
-                            <div>
-                                <p className="text-xs text-slate-500">Cancelled On</p>
-                                <p className="text-sm font-medium text-red-600">
-                                    {formatDate(sub.cancelled_at)}
-                                </p>
-                            </div>
-                        </div>
-                    )}
-                </div>
-            </CardContent>
-        </Card>
+            </div>
+        </div>
     )
 }
 

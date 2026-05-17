@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Genos, Poppins } from "next/font/google";
+import { Geist, Geist_Mono, Genos } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import QueryProvider from "@/components/shared/QueryProvider";
@@ -15,13 +15,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const poppins = Poppins({
+const genos = Genos({
   weight: ['400', '600'],
   subsets: ['latin'],
   display: 'swap',
 })
-
-
 
 export const metadata: Metadata = {
   title: "MyLedger",
@@ -36,7 +34,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${poppins.className} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${genos.className} ${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <ClerkProvider>
         <QueryProvider>

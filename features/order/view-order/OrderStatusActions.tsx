@@ -3,7 +3,6 @@
 import Link from "next/link"
 import { Download, Pencil, Trash } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
 import { Order, OrderStatus } from "@/types/order"
 import { useDeleteOrder, useUpdateOrderStatus } from "@/hooks/order"
 
@@ -38,82 +37,83 @@ const OrderStatusActions = ({
         deleteOrder.mutate(String(order.id))
     }
 
+    const buttonBase =
+        align === "mobile"
+            ? "inline-flex h-10 flex-1 items-center justify-center gap-2 rounded-xl px-3 text-sm font-bold transition-all"
+            : "inline-flex h-9 items-center justify-center gap-2 rounded-full px-4 text-sm font-bold transition-all"
+
+    const wrapper =
+        align === "mobile"
+            ? "grid grid-cols-2 gap-2"
+            : "flex flex-wrap justify-end gap-2"
+
+    const outlineButton = `${buttonBase} border border-slate-200 bg-white text-slate-700 hover:bg-slate-50 hover:text-slate-950`
+    const greenButton = `${buttonBase} bg-emerald-50 text-emerald-700 hover:bg-emerald-100`
+    const blueButton = `${buttonBase} bg-blue-50 text-blue-700 hover:bg-blue-100`
+    const redButton = `${buttonBase} bg-red-50 text-red-600 hover:bg-red-100`
+    const amberButton = `${buttonBase} bg-amber-50 text-amber-700 hover:bg-amber-100`
+
     return (
-        <div
-            className={
-                align === "desktop"
-                    ? "flex justify-end gap-2"
-                    : "flex flex-wrap gap-2"
-            }
-        >
-            <Button asChild size="sm" variant="outline">
-                <Link href={`/user/orders/${order.id}/invoice`}>
-                    <Download className="mr-2 size-4" />
-                    Invoice
-                </Link>
-            </Button>
+        <div className={wrapper}>
+            <Link href={`/user/orders/${order.id}/invoice`} className={outlineButton}>
+                <Download className="size-4" />
+                Invoice
+            </Link>
 
             {isPending && (
                 <>
-                    <Button asChild size="sm" variant="outline">
-                        <Link href={`/user/orders/${order.id}/edit`}>
-                            <Pencil className="mr-2 size-4" />
-                            Edit
-                        </Link>
-                    </Button>
+                    <Link href={`/user/orders/${order.id}/edit`} className={outlineButton}>
+                        <Pencil className="size-4" />
+                        Edit
+                    </Link>
 
-                    <Button
-                        size="sm"
-                        variant="outline"
+                    <button
+                        className={blueButton}
                         disabled={updateStatus.isPending}
                         onClick={() => handleStatusUpdate("processing")}
                     >
-                        Start Processing
-                    </Button>
+                        Process
+                    </button>
 
-                    <Button
-                        size="sm"
-                        variant="destructive"
+                    <button
+                        className={redButton}
                         disabled={deleteOrder.isPending}
                         onClick={handleDelete}
                     >
-                        <Trash className="mr-2 size-4" />
+                        <Trash className="size-4" />
                         Delete
-                    </Button>
+                    </button>
                 </>
             )}
 
             {order.status === "processing" && (
                 <>
-                    <Button
-                        size="sm"
-                        variant="outline"
+                    <button
+                        className={greenButton}
                         disabled={updateStatus.isPending}
                         onClick={() => handleStatusUpdate("delivered")}
                     >
-                        Mark Delivered
-                    </Button>
+                        Delivered
+                    </button>
 
-                    <Button
-                        size="sm"
-                        variant="destructive"
+                    <button
+                        className={redButton}
                         disabled={updateStatus.isPending}
                         onClick={() => handleStatusUpdate("cancelled")}
                     >
                         Cancel
-                    </Button>
+                    </button>
                 </>
             )}
 
             {order.status === "delivered" && (
-                <Button
-                    size="sm"
-                    variant="outline"
+                <button
+                    className={amberButton}
                     disabled={updateStatus.isPending}
                     onClick={() => handleStatusUpdate("returned")}
                 >
-                    Mark Returned
-                </Button>
+                    Return
+                </button>
             )}
         </div>
     )

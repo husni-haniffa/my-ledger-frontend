@@ -1,9 +1,12 @@
+import { ExpenseItem } from "./expense"
+
 export interface SummaryResponse {
     data: {
         summary: Summary
         inventory: Inventory
         products: Products
         sales: Sales
+        expenses: Expenses
     }
 }
 
@@ -44,4 +47,10 @@ export interface Sales {
 export interface SalesBySource {
     source: string
     revenue: number
+}
+
+export interface Expenses {
+    fixedExpenses: number
+    variableExpenses: number
+    otherExpenses: number
 }
